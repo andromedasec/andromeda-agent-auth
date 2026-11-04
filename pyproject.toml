@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "andromeda-agent-auth"
+version = "0.2.0"
+description = "Key-bound OAuth for autonomous agents calling the Andromeda Agent Gateway: private_key_jwt (RFC 7523) and DPoP (RFC 9449) as an httpx.Auth."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+    "httpx>=0.27",
+    "cryptography>=42",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+]
+langgraph = [
+    "langchain-mcp-adapters>=0.1",
+    "langgraph>=0.2",
+]
+
+[project.scripts]
+andromeda-agent-auth = "andromeda_agent_auth.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/andromeda_agent_auth"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 130
